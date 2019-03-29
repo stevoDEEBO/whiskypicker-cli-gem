@@ -1,6 +1,6 @@
 require "whisky_picker/version"
 require "whisky_picker/cli"
-require "whisky_picker/whisky"
+require "whisky_picker/whisky_scraper"
 
 
 #module WhiskyPicker
