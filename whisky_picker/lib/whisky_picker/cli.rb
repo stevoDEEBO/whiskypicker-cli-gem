@@ -136,7 +136,7 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
     #send url for selected country to whisky scraper class (in order to create list of whiskies from selected country)
     @whiskies = WhiskyPicker::WhiskyScraper.scrape_index(BASEPATH + 'url') #array
     #use returned array to create list of whiskies
-    @whiskies.each_with index |whisky, index| do
+    @whiskies.each_with_index do |whisky, index|
       puts "#{index}. #{whisky.name}" #index (#). whisky name
     end
   end
@@ -159,6 +159,7 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
       puts "Proof: #{whisky.proof}"
       puts "Rating: #{whisky.rating}"
       puts "Description: #{whisky.description}"
+    end
   end
 
   #exit CLI
