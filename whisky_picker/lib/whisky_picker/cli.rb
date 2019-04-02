@@ -1,8 +1,9 @@
 #CLI Controller
+require_relative "whisky_scraper.rb"
 
 class WhiskyPicker::CLI
 
-BASEPATH = 'http://www.thewhiskyexchange.com'
+BASEPATH = "http://www.thewhiskyexchange.com/"
 
   def call
 
@@ -36,22 +37,30 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
 
     DOC
 
+    input = nil
     while input != 'exit'
       puts "Please enter number of desired destination"
       input = gets.strip
       case input
       when "1"
         scotch #call specific methods to display list of selected whisky origin
+        break
       when "2"
         irish
+        break
       when "3"
         american
+        break
       when "4"
         japanese
+        break
       when "5"
         canadian
+        break
       when "6"
-      else puts "Didn't quite catch that. Please enter number of desired country type exit to leave."
+        other
+        break
+      else puts "Didn't quite catch that. Please enter number of desired country or type exit to leave."
       end
     end
   end
@@ -74,14 +83,18 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
       case input
       when "1"
         single_malt
+        break
       when "2"
         blended_malt
+        break
       when "3"
         blended
+        break
       when "4"
         grain
+        break
       else
-        puts "Didn't quite catch that. Please enter number of desired country exit to leave."
+        puts "Didn't quite catch that. Please enter number of desired country or exit to leave."
       end
     end
   end
@@ -134,10 +147,10 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
 
   def whisky_list(url)
     #send url for selected country to whisky scraper class (in order to create list of whiskies from selected country)
-    @whiskies = WhiskyPicker::WhiskyScraper.scrape_index(BASEPATH + 'url') #array
+    @whiskies = WhiskyPicker::WhiskyScraper.scrape_index(BASEPATH + url) #array
     #use returned array to create list of whiskies
     @whiskies.each_with_index do |whisky, index|
-      puts "#{index}. #{whisky.name}" #index (#). whisky name
+      puts "#{index+1}. #{whisky.name}" #index (#). whisky name
     end
   end
 
@@ -146,19 +159,23 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
     input = nil
     while input != 'exit'
       puts "Please enter number of desired whisky"
-      input = gets. strip
+      input = gets.strip
 
       #send selected whisky's webpage url to whisky scraper to scrape info from profile page
-      whisky = @whiskies[input.to_i] #create local variable from user's selection
-      WhiskyPicker::WhiskyScraper.scrape_profile(whisky.profile_url) #send url of that variable to scraper class to scrape profile page
+      if input.to_i >> 0 && input.to_i << @whiskies.size
+        whisky = @whiskies[input.to_i-1] #create local variable from user's selection
+        my_whisky = WhiskyPicker::WhiskyScraper.scrape_profile(BASEPATH + whisky.profile_url) #send url of that variable to scraper class to scrape profile page
 
-      #display selected whisky's info
-      puts "Name: #{whisky.name}"
-      puts "Country: #{whisky.country}"
-      puts "Region/Type: #{whisky.region_type}"
-      puts "Proof: #{whisky.proof}"
-      puts "Rating: #{whisky.rating}"
-      puts "Description: #{whisky.description}"
+        #display selected whisky's info
+        puts "Name: #{my_whisky.name}"
+        puts "Country: #{my_whisky.country}"
+        puts "Region and/or Type: #{my_whisky.region_type}"
+        puts "Proof: #{my_whisky.proof}"
+        puts "Rating: #{my_whisky.rating}"
+        puts "Description: #{my_whisky.description}"
+
+      else puts "Didn't quite catch that. Please enter number of desired whisky or exit to leave."
+      end
     end
   end
 

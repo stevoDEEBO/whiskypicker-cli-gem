@@ -7,7 +7,7 @@ class WhiskyPicker::WhiskyScraper
 
   attr_accessor :name, :profile_url, :country, :region_type, :proof, :rating, :description
 
-  def self.scrape_index (index_url = "https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter")
+  def self.scrape_index (index_url )#= "https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter")
     whiskies = []
     index = Nokogiri::HTML(open(index_url))
 
@@ -21,7 +21,7 @@ class WhiskyPicker::WhiskyScraper
     whiskies
   end
 
-  def self.scrape_profile (profile_url = "https://www.thewhiskyexchange.com/p/4132/oban-14-year-old")
+  def self.scrape_profile (profile_url )#= "https://www.thewhiskyexchange.com/p/4132/oban-14-year-old")
     profile = Nokogiri::HTML(open(profile_url))
 
     whisky = profile.css(".container")
