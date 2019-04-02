@@ -1,10 +1,12 @@
-#CLI Controller
 require_relative "whisky_scraper.rb"
 
+#CLI Controller
 class WhiskyPicker::CLI
 
+#include base path to append urls of whisky pages
 BASEPATH = "http://www.thewhiskyexchange.com/"
 
+  #welcome user to gem, pick a whisky and exit!
   def call
     greet
     pick
@@ -12,19 +14,19 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
     laters
   end
 
+  #greet user
   def greet
     puts "Welcome to Whisky Picker...ready to find some whisky?"
     puts ""
   end
 
+  #list search options
   def pick
-    #method to ask user to pick whiskies and then select the specific whisky from a list and in order to display it in a menu (to follow)
-    #display countries
     country
   end
 
+  #list countries and prompt user for country selection
   def country
-    #display list of countries
     puts <<-DOC
     Which country would you like to explore?
 
@@ -37,13 +39,14 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
 
     DOC
 
+    #get user input
     input = nil
     while input != 'exit'
       puts "Please enter number of desired destination"
       input = gets.strip
       case input
       when "1"
-        scotch #call specific methods to display list of selected whisky origin
+        scotch #country methods to search corresponding webpages
         break
       when "2"
         irish
@@ -70,6 +73,8 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
     end
   end
 
+  #scotch sections of thewhiskyexchange.com has an additional drill down by type of Scotch in order to find list of Scotch whiskies
+  #list search options by type of Scotch whiskies here and prompt user for type of Scotch selection
   def scotch
     puts <<-DOC
     Which type of Scotch whisky would you like to explore?
@@ -80,8 +85,8 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
     4. Grain
     DOC
 
+    #prompt user for desired type of scotch whisky selection
     input = nil
-
     while input != "exit"
       puts "Please enter number of desired type of Scotch whisky"
       input = gets.strip
@@ -113,8 +118,10 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
   end
 
   #whisky origins here
+  #show list of specific whiskies
   def single_malt
     puts "Let's explore single malt Scotch whiskies!"
+    #call method to list whiskies for this particular type
     whisky_list('c/40/single-malt-scotch-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
   end
 
@@ -158,12 +165,12 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
     whisky_list('c/305/world-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
   end
 
+  #display list of whiskies for selected country by using scraper create array of scraped whiskies and a hash for each individual whisky
   def whisky_list(url)
-    #send url for selected country to whisky scraper class (in order to create list of whiskies from selected country)
     @whiskies = WhiskyPicker::WhiskyScraper.scrape_index(BASEPATH + url) #array
-    #use returned array to create list of whiskies
+    #display list of whiskies
     @whiskies.each_with_index do |whisky, index|
-      puts "#{index+1}. #{whisky.name}" #index (#). whisky name
+      puts "#{index+1}. #{whisky.name}"
     end
   end
 
@@ -195,15 +202,18 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
         puts ""
         puts ""
 
+        #prompt user for another selection if desired
         another_one?
       end
     end
   end
 
+  #prompt user for another selection if desired
   def another_one?
     puts "Want to pick another one? Type back to return to most recent list, start to restart or exit to leave."
 
     input = gets.strip
+    #anticipate responses
     if input == "start" || input == "restart" || input == "top"
       pick
     elsif input == "exit" || input == "bye"
@@ -213,6 +223,7 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
         puts "#{index+1}. #{whisky.name}"
       end
     else
+      #if inappropriate responses, prompt again
       another_one?
     end
   end
