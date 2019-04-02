@@ -117,17 +117,17 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
     whisky_list('c/33/american-whiskey?filter=true#productlist-filter')
   end
 
-  def
+  def japanese
     puts "Let's explore Japanese whiskies!"
     whisky_list('c/35/japanese-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
   end
 
-  def
+  def canadian
     puts "Let's explore Canadian whiskies!"
     whisky_list('c/34/canadian-whisky?filter=true&rfdata=~size.76#productlist-filter')
   end
 
-  def
+  def other
     puts "Let's explore other whiskies of the world!"
     whisky_list('c/305/world-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
   end
