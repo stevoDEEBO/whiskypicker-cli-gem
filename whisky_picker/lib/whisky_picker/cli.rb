@@ -6,15 +6,15 @@ class WhiskyPicker::CLI
 BASEPATH = "http://www.thewhiskyexchange.com/"
 
   def call
-
-    greeting
+    greet
     pick
     menu
     laters
   end
 
-  def greeting
+  def greet
     puts "Welcome to Whisky Picker...ready to find some whisky?"
+    puts ""
   end
 
   def pick
@@ -60,7 +60,12 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
       when "6"
         other
         break
-      else puts "Didn't quite catch that. Please enter number of desired country or type exit to leave."
+      when "back"
+        country
+        break
+      when "exit"
+        laters
+      else puts "Didn't quite catch that. Please enter number of desired country or type back for country list or exit to leave."
       end
     end
   end
@@ -93,8 +98,16 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
       when "4"
         grain
         break
+      when "back"
+        scotch
+        break
+      when "start"
+        country
+        break
+      when "exit"
+        laters
       else
-        puts "Didn't quite catch that. Please enter number of desired country or exit to leave."
+        puts "Didn't quite catch that. Please enter number of desired country or type back for list of Scotch whiskies, start for country list or exit to leave."
       end
     end
   end
@@ -162,7 +175,7 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
       input = gets.strip
 
       #send selected whisky's webpage url to whisky scraper to scrape info from profile page
-      if input.to_i >> 0 && input.to_i << @whiskies.size
+      if input.to_i >> 0 && input.to_i+1 << @whiskies.size
         whisky = @whiskies[input.to_i-1] #create local variable from user's selection
         my_whisky = WhiskyPicker::WhiskyScraper.scrape_profile(BASEPATH + whisky.profile_url) #send url of that variable to scraper class to scrape profile page
 
@@ -173,9 +186,28 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
         puts "Proof: #{my_whisky.proof}"
         puts "Rating: #{my_whisky.rating}"
         puts "Description: #{my_whisky.description}"
+        puts ""
+        puts ""
 
-      else puts "Didn't quite catch that. Please enter number of desired whisky or exit to leave."
+        another_one?
       end
+    end
+  end
+
+  def another_one?
+    puts "Want to pick another one? Type back to return to most recent list, start to restart or exit to leave."
+
+    input = gets.strip
+    if input = "start" || input = "restart" || input = "top"
+      pick
+    elsif input = "exit" || input = "bye"
+      laters
+    elsif input = "back" || input = "list" || input = "yes" || input = "y"
+      @whiskies.each_with_index do |whisky, index|
+        puts "#{index+1}. #{whisky.name}"
+      end
+    else
+      another_one?
     end
   end
 
