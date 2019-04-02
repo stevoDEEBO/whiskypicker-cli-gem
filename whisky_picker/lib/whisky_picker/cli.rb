@@ -56,46 +56,85 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
     end
   end
 
-  #whisky origins here
   def scotch
-    puts "Let's explore Scotch whiskies!"
-    #method to return url for page of Scotch whiskies
-    whisky_url(  #thewhiskyexchange.com/'scotch whisky webpage')
+    puts <<-DOC
+    Which type of Scotch whisky would you like to explore?
+
+    1. Single Malt
+    2. Blended Malt
+    3. Blended
+    4. Grain
+    DOC
+
+    input = nil
+
+    while input != "exit"
+      puts "Please enter number of desired type of Scotch whisky"
+      input = gets.strip
+      case input
+      when "1"
+        single_malt
+      when "2"
+        blended_malt
+      when "3"
+        blended
+      when "4"
+        grain
+      else
+        puts "Didn't quite catch that. Please enter number of desired country exit to leave."
+      end
+    end
+  end
+
+  #whisky origins here
+  def single_malt
+    puts "Let's explore single malt Scotch whiskies!"
+    whisky_list('c/40/single-malt-scotch-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
+  end
+
+  def blended_malt
+    puts "Let's explore blended malt Scotch whiskies!"
+    whisky_list('c/309/blended-malt-scotch-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
+  end
+
+  def blended
+    puts "Let's explore blended Scotch whiskies!"
+    whisky_list('c/304/blended-scotch-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
+  end
+
+  def grain
+    puts "Let's explore grain Scotch whiskies!"
+    whisky_list('c/310/grain-scotch-whisky?filter=true&rfdata=~size.76#productlist-filter')
   end
 
   def irish
     puts "Let's explore Irish whiskies!"
-    #method to return url for page of irish whiskies
-    whisky_url(  #thewhiskyexchange.com/'irish whisky webpage')
+    whisky_list('c/32/irish-whiskey?filter=true&rfdata=~size.76~pr.100#productlist-filter')
   end
 
   def american
     puts "Let's explore American whiskies!"
-    #method to return url for page of american whiskies
-    whisky_url(  #thewhiskyexchange.com/'american whisky webpage')
+    whisky_list('c/33/american-whiskey?filter=true#productlist-filter')
   end
 
-  def japanese
+  def
     puts "Let's explore Japanese whiskies!"
-    #method to return url for page of japanese whiskies
-    whisky_url(  #thewhiskyexchange.com/'japanese whisky webpage')
+    whisky_list('c/35/japanese-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
   end
 
-  def canadian
+  def
     puts "Let's explore Canadian whiskies!"
-    #method to return url for page of canadian whiskies
-    whisky_url(  #thewhiskyexchange.com/'canadian whisky webpage')
+    whisky_list('c/34/canadian-whisky?filter=true&rfdata=~size.76#productlist-filter')
   end
 
-  def other
-    puts "Let's explore whiskies from other countries!"
-    #method to return url for page of other whiskies
-    whisky_url(  #thewhiskyexchange.com/'other whisky webpage')
+  def
+    puts "Let's explore other whiskies of the world!"
+    whisky_list('c/305/world-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
   end
 
-  def whisky_url(url)
+  def whisky_list(url)
     #send url for selected country to whisky scraper class (in order to create list of whiskies from selected country)
-    @whiskies = WhiskyPicker::WhiskyScraper.scrape_index(url) #array
+    @whiskies = WhiskyPicker::WhiskyScraper.scrape_index(BASEPATH + 'url') #array
     #use returned array to create list of whiskies
     @whiskies.each_with index |whisky, index| do
       puts "#{index}. #{whisky.name}" #index (#). whisky name
@@ -114,7 +153,18 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
       WhiskyPicker::WhiskyScraper.scrape_profile(whisky.profile_url) #send url of that variable to scraper class to scrape profile page
 
       #display selected whisky's info
-      
+      puts "Name: #{whisky.name}"
+      puts "Country: #{whisky.country}"
+      puts "Region/Type: #{whisky.region_type}"
+      puts "Proof: #{whisky.proof}"
+      puts "Rating: #{whisky.rating}"
+      puts "Description: #{whisky.description}"
+  end
+
+  #exit CLI
+  def laters
+    puts "Thanks for stopping by. Laters!"
+    exit
   end
 
 end
