@@ -167,24 +167,30 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
     end
   end
 
+  #display menu results with details about selected whisky
   def menu
-    #ask user for specific whisky selection and display that whisky's info
     input = nil
     while input != 'exit'
       puts "Please enter number of desired whisky"
       input = gets.strip
 
-      #send selected whisky's webpage url to whisky scraper to scrape info from profile page
-      if input.to_i >> 0 && input.to_i+1 << @whiskies.size
-        whisky = @whiskies[input.to_i-1] #create local variable from user's selection
-        my_whisky = WhiskyPicker::WhiskyScraper.scrape_profile(BASEPATH + whisky.profile_url) #send url of that variable to scraper class to scrape profile page
+      #send selected whisky's webpage url to scraper to scrape info from profile page
+      if input.to_i > 0 && input.to_i+1 << @whiskies.size
+        whisky = @whiskies[input.to_i-1]
 
-        #display selected whisky's info
+        #have scraper scrape profile page for selected whisky
+        my_whisky = WhiskyPicker::WhiskyScraper.scrape_profile(BASEPATH + whisky.profile_url)
+
+        #display selected whisky profile info
         puts "Name: #{my_whisky.name}"
         puts "Country: #{my_whisky.country}"
         puts "Region and/or Type: #{my_whisky.region_type}"
         puts "Proof: #{my_whisky.proof}"
-        puts "Rating: #{my_whisky.rating}"
+        if my_whisky.rating == ""
+          puts "Customer rating: unrated"
+        else
+          puts "Customer rating: #{my_whisky.rating}/5 stars"
+        end
         puts "Description: #{my_whisky.description}"
         puts ""
         puts ""
@@ -198,11 +204,11 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
     puts "Want to pick another one? Type back to return to most recent list, start to restart or exit to leave."
 
     input = gets.strip
-    if input = "start" || input = "restart" || input = "top"
+    if input == "start" || input == "restart" || input == "top"
       pick
-    elsif input = "exit" || input = "bye"
+    elsif input == "exit" || input == "bye"
       laters
-    elsif input = "back" || input = "list" || input = "yes" || input = "y"
+    elsif input == "back" || input == "list" || input == "yes" || input == "y"
       @whiskies.each_with_index do |whisky, index|
         puts "#{index+1}. #{whisky.name}"
       end
@@ -216,5 +222,4 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
     puts "Thanks for stopping by. Laters!"
     exit
   end
-
 end
