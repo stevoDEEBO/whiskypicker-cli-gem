@@ -32,10 +32,11 @@ How to build a CLI gem
 
 Command Line Interface displaying whiskies from thewhiskyexchange.com
 
-user types whisky_picker
-cli greets user and shows whisky regions
+user types whiskypicker
+cli greets user and shows whisky regions(countries)
 shows list of type of whiskies
 user picks type of whisky
 shows list of that particular type of whisky
 user picks 1 whisky
 shows details about that 1 whisky
+bbye
