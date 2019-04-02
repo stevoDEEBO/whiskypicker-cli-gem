@@ -3,5 +3,4 @@
 require "bundler/setup"
 require "whisky_picker"
 
-#WhiskyPicker::CLI.new.call
-WhiskyPicker::WhiskyScraper.scrape_index
+WhiskyPicker::CLI.new.call
