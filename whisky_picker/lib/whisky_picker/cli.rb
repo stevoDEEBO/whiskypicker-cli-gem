@@ -95,13 +95,26 @@ BASEPATH = 'http://www.thewhiskyexchange.com'
 
   def whisky_url(url)
     #send url for selected country to whisky scraper class (in order to create list of whiskies from selected country)
-    whiskies = WhiskyPicker::WhiskyScraper.scrape_index(url) #array
+    @whiskies = WhiskyPicker::WhiskyScraper.scrape_index(url) #array
     #use returned array to create list of whiskies
-    whiskies.each_with index |whisky, index| do
+    @whiskies.each_with index |whisky, index| do
       puts "#{index}. #{whisky.name}" #index (#). whisky name
     end
   end
 
+  def menu
+    #ask user for specific whisky selection and display that whisky's info
+    input = nil
+    while input != 'exit'
+      puts "Please enter number of desired whisky"
+      input = gets. strip
 
+      #send selected whisky's webpage url to whisky scraper to scrape info from profile page
+      whisky = @whiskies[input.to_i] #create local variable from user's selection
+      WhiskyPicker::WhiskyScraper.scrape_profile(whisky.profile_url) #send url of that variable to scraper class to scrape profile page
+
+      #display selected whisky's info
+      
+  end
 
 end
