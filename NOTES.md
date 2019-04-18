@@ -7,14 +7,14 @@ Day 1
 * Make your initial commit and push the project to github
 * Create your bin file executable
 * Setup your environment for your files (there are plenty of video tutorials when this is done, it's how we get our files to know about each other)
-Code your scraper class to scrape data from the website
+*Code your scraper class to scrape data from the website
 
 Day 2
-Convert the scraped data to objects
+*Convert the scraped data to objects
 if done early, start working on cli
 
 Day 3
-finish your cli
+*finish your cli
 record a walkthrough of what your project does
 write a blog
 submit your work

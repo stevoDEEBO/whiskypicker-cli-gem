@@ -182,7 +182,10 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
       input = gets.strip
 
       #send selected whisky's webpage url to scraper to scrape info from profile page
-      if input.to_i > 0 && input.to_i+1 << @whiskies.size
+      if input.to_i <= 0 || input.to_i > @whiskies.size
+        puts "Didn't quite catch that. Please enter number of desired whisky"
+        #input.to_i > 0 && input.to_i+1 << @whiskies.size
+      else
         whisky = @whiskies[input.to_i-1]
 
         #have scraper scrape profile page for selected whisky
@@ -190,6 +193,7 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
 
         #display selected whisky profile info
         puts "Name: #{my_whisky.name}"
+        puts ""
         puts "Country: #{my_whisky.country}"
         puts "Region and/or Type: #{my_whisky.region_type}"
         puts "Proof: #{my_whisky.proof}"
@@ -198,6 +202,7 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
         else
           puts "Customer rating: #{my_whisky.rating}/5 stars"
         end
+        puts ""
         puts "Description: #{my_whisky.description}"
         puts ""
         puts ""
