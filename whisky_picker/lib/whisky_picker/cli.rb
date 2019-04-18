@@ -184,7 +184,6 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
       #send selected whisky's webpage url to scraper to scrape info from profile page
       if input.to_i <= 0 || input.to_i > @whiskies.size
         puts "Didn't quite catch that. Please enter number of desired whisky"
-        #input.to_i > 0 && input.to_i+1 << @whiskies.size
       else
         whisky = @whiskies[input.to_i-1]
 
