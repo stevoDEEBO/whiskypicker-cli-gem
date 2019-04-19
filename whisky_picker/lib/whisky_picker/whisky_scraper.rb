@@ -31,9 +31,9 @@ class WhiskyPicker::WhiskyScraper
     else
       this_whisky.name = whisky.css(".name-container h1").children.first.text.strip + " (" + whisky.css(".name-container h1").children.children.text.strip + ")"
     end
-  #binding.pry
     this_whisky.country = whisky.css("dl.meta").at('dt:contains("Country")').next_element.text.strip if whisky.css("dl.meta").at('dt:contains("Country")') != nil
-    this_whisky.region_type = whisky.css(".name-container .properties li").first.text.strip
+#binding.pry
+    this_whisky.region_type = whisky.css(".name-container .properties li").first.text.strip if whisky.css(".name-container .properties li").first != nil
     this_whisky.proof = whisky.css(".name-container .strength").text.split(" / ").last.strip
     this_whisky.rating = whisky.css(".rating-container span").text.strip
     this_whisky.description = whisky.css("#prodDesc").text.strip
