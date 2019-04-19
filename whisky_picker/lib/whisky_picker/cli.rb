@@ -202,7 +202,11 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
           puts "Customer rating: #{my_whisky.rating}/5 stars"
         end
         puts ""
-        puts "Description: #{my_whisky.description}"
+        if my_whisky.description = ""
+          puts "Description: none"
+        else
+          puts "Description: #{my_whisky.description}"
+        end
         puts ""
         puts ""
 

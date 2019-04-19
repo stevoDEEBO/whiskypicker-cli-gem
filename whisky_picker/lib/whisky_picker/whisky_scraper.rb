@@ -26,13 +26,13 @@ class WhiskyPicker::WhiskyScraper
 
     whisky = profile.css(".container")
     this_whisky = self.new
-  #binding.pry
     if whisky.css(".name-container h1").children.children.text.strip == ""
       this_whisky.name = whisky.css(".name-container h1").children.first.text.strip
     else
       this_whisky.name = whisky.css(".name-container h1").children.first.text.strip + " (" + whisky.css(".name-container h1").children.children.text.strip + ")"
     end
-    this_whisky.country = whisky.css("dl.meta").at('dt:contains("Country")').next_element.text.strip
+  #binding.pry
+    this_whisky.country = whisky.css("dl.meta").at('dt:contains("Country")').next_element.text.strip if whisky.css("dl.meta").at('dt:contains("Country")') != nil
     this_whisky.region_type = whisky.css(".name-container .properties li").first.text.strip
     this_whisky.proof = whisky.css(".name-container .strength").text.split(" / ").last.strip
     this_whisky.rating = whisky.css(".rating-container span").text.strip
