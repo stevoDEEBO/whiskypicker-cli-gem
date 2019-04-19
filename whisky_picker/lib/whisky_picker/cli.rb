@@ -147,7 +147,7 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
 
   def american
     puts "Let's explore American whiskies!"
-    whisky_list('c/33/american-whiskey?filter=true&rfdata=~size.76~pr.50#productlist-filter')
+    whisky_list('c/33/american-whiskey?filter=true&rfdata=~size.76#productlist-filter')
   end
 
   def japanese
@@ -162,7 +162,7 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
 
   def other
     puts "Let's explore other whiskies of the world!"
-    whisky_list('c/305/world-whisky?filter=true&rfdata=~size.76~pr.100#productlist-filter')
+    whisky_list('c/305/305/world-whisky?filter=true&rfdata=~size.76~pr.50#productlist-filter')
   end
 
   #display list of whiskies for selected country by using scraper create array of scraped whiskies and a hash for each individual whisky
