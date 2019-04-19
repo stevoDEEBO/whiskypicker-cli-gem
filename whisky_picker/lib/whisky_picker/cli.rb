@@ -1,4 +1,5 @@
 require_relative "whisky_scraper.rb"
+require 'colorize'
 
 #CLI Controller
 class WhiskyPicker::CLI
@@ -191,21 +192,21 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
         my_whisky = WhiskyPicker::WhiskyScraper.scrape_profile(BASEPATH + whisky.profile_url)
 
         #display selected whisky profile info
-        puts "Name: #{my_whisky.name}"
+        puts "Name: " + "#{my_whisky.name}".upcase.colorize(:color => :blue).underline
         puts ""
-        puts "Country: #{my_whisky.country}"
-        puts "Region and/or Type: #{my_whisky.region_type}"
-        puts "Proof: #{my_whisky.proof}"
+        puts "Country: " + "#{my_whisky.country}".colorize(:blue)
+        puts "Region and/or Type: " + "#{my_whisky.region_type}".colorize(:cyan)
+        puts "Proof: " + "#{my_whisky.proof}".colorize(:green)
         if my_whisky.rating == ""
-          puts "Customer rating: unrated"
+          puts "Customer rating: " + "unrated".colorize(:light_green)
         else
-          puts "Customer rating: #{my_whisky.rating}/5 stars"
+          puts "Customer rating: " + "#{my_whisky.rating}/5 stars".colorize(:light_green)
         end
         puts ""
         if my_whisky.description == ""
-          puts "Description: none"
+          puts "Description: " + "none".colorize(:yellow)
         else
-          puts "Description: #{my_whisky.description}"
+          puts "Description: " + "#{my_whisky.description}".colorize(:yellow)
         end
         puts ""
         puts ""

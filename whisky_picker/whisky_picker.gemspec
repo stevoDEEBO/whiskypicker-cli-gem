@@ -41,5 +41,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry', '~> 0'
 
   spec.add_dependency 'nokogiri', '~> 1.10.2'
+  spec.add_dependency 'colorize', '~> 0.8.1'
 
 end
