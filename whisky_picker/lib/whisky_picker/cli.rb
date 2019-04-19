@@ -147,7 +147,7 @@ BASEPATH = "http://www.thewhiskyexchange.com/"
 
   def american
     puts "Let's explore American whiskies!"
-    whisky_list('c/33/american-whiskey?filter=true#productlist-filter')
+    whisky_list('c/33/american-whiskey?filter=true&rfdata=~size.76~pr.50#productlist-filter')
   end
 
   def japanese
