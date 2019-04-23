@@ -11,13 +11,13 @@ Day 1
 
 Day 2
 *Convert the scraped data to objects
-if done early, start working on cli
+*if done early, start working on cli
 
 Day 3
 *finish your cli
-record a walkthrough of what your project does
-write a blog
-submit your work
+-record a walkthrough of what your project does
+-write a blog
+-submit your work
 
 
 How to build a CLI gem
