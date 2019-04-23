@@ -30,8 +30,8 @@ How to build a CLI gem
 7. discover objects
 8. program
 
-Command Line Interface displaying whiskies from thewhiskyexchange.com
-User Flow
+* Command Line Interface displaying whiskies from thewhiskyexchange.com
+* User Flow
 1. user types whiskypicker
 2. cli greets user and shows whisky regions(countries)
 3. shows list of type of whiskies
